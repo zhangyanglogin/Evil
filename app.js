@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var app = express();
 
@@ -17,16 +18,36 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// 按照上面的解释，设置 session 的可选参数
+app.use(session({
+  secret: '4850a42e3bc0d39c978770392cbd8dc2923e3d1d', // 建议使用 128 个字符的随机字符串
+  resave: true,
+  saveUninitialized: true,
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', require('./routes/index'));
-app.use('/model', require('./routes/model'));
+app.use('/',  require('./routes/index'));
+app.use('/login', require('./routes/login'));
+app.use('/dashboard',authorize, require('./routes/dashboard'));
+app.use('/model',authorize, require('./routes/model'));
+
+// catch 未登陆
+function authorize(req, res, next) {
+  if (req.session.user) {
+    next();
+  }
+  else {
+    res.redirect("/login");
+  }
+}
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  next(err);
+  res.send('404');
 });
 
 // error handlers
@@ -34,7 +55,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -45,13 +66,12 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
     error: {}
   });
 });
-
 
 module.exports = app;
