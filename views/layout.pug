@@ -10,8 +10,16 @@ html(lang='zh-CN')
     link(rel='stylesheet',href='//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css')
     link(rel='stylesheet',href='//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css')
     link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet', integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN', crossorigin='anonymous')
+    link(rel='stylesheet',href='//cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css')
     link(rel='stylesheet',href='/metisMenu/metisMenu.min.css')
     link(rel='stylesheet',href='/sb-admin-2/sb-admin-2.css')
+    script(src='//cdn.bootcss.com/jquery/2.2.4/jquery.min.js')
+    script(src='//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js')
+    script(src='//cdn.bootcss.com/jquery-validate/1.16.0/jquery.validate.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js')
+    script(src='/javascript/web.js')
+    script(src='/metisMenu/metisMenu.min.js')
+    script(src='/sb-admin-2/sb-admin-2.js')
   body
     div#wrapper
       nav.navbar.navbar-default.navbar-static-top(role='navigation' style='margin-bottom: 0')
@@ -164,7 +172,7 @@ html(lang='zh-CN')
                   |  Settings
               li.divider
               li
-                a(href='#')
+                a(href='/Login/logout')
                   i.fa.fa-sign-out.fa-fw
                   |  Logout
         div.navbar-default.sidebar(role='navigation')
@@ -180,11 +188,11 @@ html(lang='zh-CN')
               li
                 a(href='/dashboard')
                   i.fa.fa-dashboard.fa-fw
-                  | Dashboard  
+                  | 面板  
               li
                 a(href="/model")
                   i.fa.fa-table.fa-fw
-                  | Tables
+                  | 领域
               li
                 a(href="forms.html")
                   i.fa.fa-edit.fa-fw
@@ -227,9 +235,5 @@ html(lang='zh-CN')
       div#page-wrapper
         div.row
           block content
-    script(src='//cdn.bootcss.com/jquery/2.2.4/jquery.min.js')
-    script(src='//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js')
-    script(src='/metisMenu/metisMenu.min.js')
-    script(src='/sb-admin-2/sb-admin-2.js')
     
 

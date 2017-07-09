@@ -6,7 +6,7 @@ html(lang='zh-CN')
     meta(name='viewport',content='width=device-width, initial-scale=1')
     meta(name='description',content='')
     meta(name='author',content='')
-    title 登录
+    title 注册
     link(rel='stylesheet',href='//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css')
     link(rel='stylesheet',href='//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css')
     link(rel='stylesheet',href='//cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css')
@@ -18,21 +18,19 @@ html(lang='zh-CN')
         div.col-md-4.col-md-offset-4
           div.login-panel.panel.panel-default
             div.panel-heading
-              h3.panel-title 请登录
+              h3.panel-title 注册新用户
             div.panel-body
-              form#loginForm(role='form')
+              form#registerForm(role='form')
                 fieldset
                   div.form-group
-                    input.form-control(placeholder="帐号",name="telephone",type="text",autofocus)
+                    input#telephone.form-control(placeholder="手机号",name="telephone",type="text",autofocus )
                   div.form-group
-                    input.form-control(placeholder="密码",name="password",type="password")
-                  input.btn.btn-lg.btn-success.btn-block(type='submit',value='登录') 
+                    input.form-control(placeholder="密码",name="password",type="password" )
+                  input.btn.btn-lg.btn-success.btn-block(type='submit',value='注册') 
     
     script(src='//cdn.bootcss.com/jquery/2.2.4/jquery.min.js')
     script(src='//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js')
     script(src='//cdn.bootcss.com/jquery-validate/1.16.0/jquery.validate.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js')
     script(src='/javascript/web.js')
-    script(src='/javascript/login.js')
-    
-
+    script(src='/javascript/register.js')

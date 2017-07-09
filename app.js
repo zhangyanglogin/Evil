@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/',  require('./routes/index'));
 app.use('/login', require('./routes/login'));
+app.use('/register', require('./routes/register'));
 app.use('/dashboard',authorize, require('./routes/dashboard'));
 app.use('/model',authorize, require('./routes/model'));
 

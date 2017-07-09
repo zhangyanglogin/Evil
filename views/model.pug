@@ -2,174 +2,96 @@ extends layout
 
 block content
   div.col-lg-12
-    h1.page-header 领域模型 #{visit}
+    h1.page-header 领域模型
   div.col-lg-6
     div.panel.panel-default
+      div.panel-body
+        a#createModelBtn(href='javascript:;',title='添加领域模型')
+          h1.text-center
+            i.fa.fa-plus
+    - if (leftList.length)
+    - leftList.forEach(function(item){
+    div.panel.panel-default
       div.panel-heading
-        | 项目
-        div.pull-right
+       = item.name
+       div.pull-right
           div.btn-group
             button.btn.btn-default.btn-xs.dropdown-toggle(type="button",data-toggle="dropdown",aria-expanded="false") 操作
               span.caret
             ul.dropdown-menu.pull-right(role="menu")
               li
-                a(href="#") 编辑
+                a.model-edit(href="javascript:void(0)",data-id=item._id,data-name=item.name) 编辑 
               li
-                a(href="#") 删除
+                a.model-del(href="javascript:void(0)",data-id=item._id,data-name=item.name) 删除
               li.divider
               li
-                a(href="#") 添加数据
+                a.model-property-add(href="javascript:void(0)",data-id='{item._id}') 添加属性
       div.panel-body
-         div.table-responsive
+        div.table-responsive
           table.table.table-striped.table-bordered.table-hover
             thead
               tr
                 th(style='width:10%') #
-                th(style='width:59%') 名称
+                th(style='width:62%') 名称
                 th(style='width:20%') 类型
-                th(style='width:11%') 
+                th(style='width:8%')
             tbody
+              - item.property.forEach(function(p,n){
               tr
-                td 1
-                td Mark
-                td 文本
+                td #{n+1}
+                td #{p.name}
+                td #{p.type}
                 td
                   ul.list-inline.small(style='margin-bottom: 0')
                     li
-                      a(href='#') 修改
+                      a(href='#',title='编辑')
+                        i.glyphicon.glyphicon-edit  
                     li
-                      a(href='#') 删除
-              tr
-                td 2
-                td Mark
-                td 数字
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#') 修改
-                    li
-                      a(href='#') 删除
-              tr
-                td 3
-                td Mark
-                td 日期
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#') 修改
-                    li
-                      a(href='#') 删除
-              tr
-                td 4
-                td Mark
-                td 时间
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#') 修改
-                    li
-                      a(href='#') 删除
-              tr
-                td 5
-                td Mark
-                td 日期时间
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#') 修改
-                    li
-                      a(href='#') 删除
-              tr
-                td 6
-                td Mark
-                td 单选
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#') 修改
-                    li
-                      a(href='#') 删除
-              tr
-                td 7
-                td Mark
-                td 复选
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#') 修改
-                    li
-                      a(href='#') 删除
-              tr
-                td 8
-                td Mark
-                td 文本域
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#') 修改
-                    li
-                      a(href='#') 删除
-              tr
-                td 9
-                td Mark
-                td 文件
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#') 修改
-                    li
-                      a(href='#') 删除
-    div.panel.panel-default
-      div.panel-body
-        a(href='#',title='添加领域模型')
-          h1.text-center
-            i.fa.fa-plus
+                      a(href='#',title='删除')
+                        i.glyphicon.glyphicon-remove
+              - })
+    - })
   div.col-lg-6
+    - if (rightList.length)
+    - rightList.forEach(function(item){
     div.panel.panel-default
       div.panel-heading
-        | 用户
+       = item.name
+       div.pull-right
+          div.btn-group
+            button.btn.btn-default.btn-xs.dropdown-toggle(type="button",data-toggle="dropdown",aria-expanded="false") 操作
+              span.caret
+            ul.dropdown-menu.pull-right(role="menu")
+              li
+                a.model-edit(href="javascript:void(0)",data-id=item._id,data-name=item.name) 编辑 
+              li
+                a.model-del(href="javascript:void(0)",data-id=item._id,data-name=item.name) 删除
+              li.divider
+              li
+                a.model-property-add(href="javascript:void(0)",data-id='{item._id}') 添加属性
       div.panel-body
-         div.table-responsive
+        div.table-responsive
           table.table.table-striped.table-bordered.table-hover
             thead
               tr
-                th #
-                th 名称
-                th 类型
+                th(style='width:10%') #
+                th(style='width:62%') 名称
+                th(style='width:20%') 类型
+                th(style='width:8%')
             tbody
+              - item.property.forEach(function(p,n){
               tr
-                td 1
-                td Mark
-                td 文本
-              tr
-                td 2
-                td Mark
-                td 数字
-              tr
-                td 3
-                td Mark
-                td 日期
-              tr
-                td 4
-                td Mark
-                td 时间
-              tr
-                td 5
-                td Mark
-                td 日期时间
-              tr
-                td 6
-                td Mark
-                td 单选
-              tr
-                td 7
-                td Mark
-                td 复选
-              tr
-                td 8
-                td Mark
-                td 文本域
-              tr
-                td 9
-                td Mark
-                td 文件
+                td #{n+1}
+                td #{p.name}
+                td #{p.type}
+                td
+                  ul.list-inline.small(style='margin-bottom: 0')
+                    li
+                      a(href='#',title='编辑')
+                        i.glyphicon.glyphicon-edit  
+                    li
+                      a(href='#',title='删除')
+                        i.glyphicon.glyphicon-remove
+              - })
+    - })
+  script(src='/javascript/model.js')

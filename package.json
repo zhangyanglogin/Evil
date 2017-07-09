@@ -13,7 +13,8 @@
     "morgan": "^1.7.0",
     "pug": "^2.0.0-beta6",
     "serve-favicon": "^2.3.0",
-    "express-session": "^1.15.3"
+    "express-session": "^1.15.3",
+    "mongoose":"^4.11.1"
   },
   "description": "所见即所得的MockUp编辑器，向页面拖拽元素来设计页面，保存后生成Html页面，可直接供开发人员使用。",
   "main": "app.js",
