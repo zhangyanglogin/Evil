@@ -25,7 +25,7 @@ block content
                 a.model-del(href="javascript:void(0)",data-id=item._id,data-name=item.name) 删除
               li.divider
               li
-                a.model-property-add(href="javascript:void(0)",data-id='{item._id}') 添加属性
+                a.model-property-add(href="javascript:void(0)",data-id=item._id,data-name=item.name) 添加属性
       div.panel-body
         div.table-responsive
           table.table.table-striped.table-bordered.table-hover
@@ -68,7 +68,7 @@ block content
                 a.model-del(href="javascript:void(0)",data-id=item._id,data-name=item.name) 删除
               li.divider
               li
-                a.model-property-add(href="javascript:void(0)",data-id='{item._id}') 添加属性
+                a.model-property-add(href="javascript:void(0)",data-id=item._id,data-name=item.name) 添加属性
       div.panel-body
         div.table-responsive
           table.table.table-striped.table-bordered.table-hover
@@ -95,3 +95,49 @@ block content
               - })
     - })
   script(src='/javascript/model.js')
+  div.col-lg-12.hidden.model-property-add-template
+    form
+      div.form-group
+        label(for='name') 属性名称
+        input.form-control(type='email',name='name',placeholder='请输入属性名称')
+      div.form-group
+        label(for='type') 属性类型
+        select(class='form-control',name='type')
+          option(value='') ---请选择---
+          option(value='text') 文本
+          option(value='number') 数字
+          option(value='date') 日期
+          option(value='object') 对象
+          option(value='array') 集合
+      //- div.form-group
+      //-   label(for='text-setting') 文本设置
+      //-   div
+      //-     label.mr10(for='text-setting-row') 行数
+      //-     label.radio-inline
+      //-       input(type='radio',name='text-setting-row',value='single')
+      //-       | 单行
+      //-     label.radio-inline
+      //-       input(type='radio',name='text-setting-row',value='multiline')
+      //-       | 多行
+      //-   div
+      //-     label.mr10(for='text-setting-require') 必填
+      //-     label.radio-inline
+      //-       input(type='radio',name='text-setting-require',value='true')
+      //-       | 是
+      //-     label.radio-inline
+      //-       input(type='radio',name='text-setting-require',value='false')
+      //-       | 否
+      //-   div
+      //-     label.mr10(for='text-setting-placeholder') 提示文本
+      //-     input(type='text',name='text-setting-placeholder',value='请输入')
+      //-   div
+      //-     label.mr10(for='text-setting-maxlength') 字符容量
+      //-     input(type='number',name='text-setting-maxlength',value='100')
+      //- div.form-group
+      //-   label(for='number-setting') 数字设置
+      //- div.form-group
+      //-   label(for='date-setting') 日期设置
+      //- div.form-group
+      //-   label(for='object-setting') 对象设置
+      //- div.form-group
+      //-   label(for='array-setting') 集合设置

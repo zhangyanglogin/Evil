@@ -50,7 +50,7 @@ $(function () {
         var id = $(this).attr("data-id");
         var name = $(this).attr("data-name");
         BootstrapDialog.show({
-            title: '编辑模型',
+            title: name+'——编辑',
             message: '<input type="text" class="form-control" placeholder="请输入模型名称" value="' + name + '"/>',
             buttons: [{
                 label: '确定',
@@ -99,7 +99,7 @@ $(function () {
         var id = $(this).attr("data-id");
         var name = $(this).attr("data-name");
         BootstrapDialog.show({
-            title: '删除模型',
+            title: name+'——删除',
             message: '是否删除模型：'+name,
             buttons: [{
                 label: '确定',
@@ -139,6 +139,27 @@ $(function () {
     });
 
     $(".model-property-add").on("click", function () {
-        alert("model-property-add");
+        var id = $(this).attr("data-id");
+        var name = $(this).attr("data-name");
+        var html=$(".model-property-add-template").html();
+        BootstrapDialog.show({
+            title: name+'——添加属性',
+            message: html,
+            buttons: [{
+                label: '确定',
+                cssClass: 'btn-primary',
+                action: function (dialogRef) {
+                    var $button = this;
+                    $button.spin();
+                    dialogRef.enableButtons(false);
+                    dialogRef.setClosable(false);
+                }
+            }, {
+                label: '取消',
+                action: function (dialogRef) {
+                    dialogRef.close();
+                }
+            }]
+        });
     });
 });
