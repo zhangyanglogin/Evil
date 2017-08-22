@@ -16,7 +16,6 @@ $(function () {
                 required: "请填写密码",
             }
         },
-        debug: true,
         submitHandler: function (form) {
             $.ajax({
                 "url": "/login/submit",

@@ -3,112 +3,73 @@ extends layout
 block content
   div.col-lg-12
     h1.page-header 领域模型
-  div.col-lg-6
+  div.col-lg-12
+    - if (modelList.length)
+    - modelList.forEach(function(item){
+    div.panel.panel-default
+      div.panel-heading
+       = item.name
+       div.pull-right
+          div.btn-group
+            button.btn.btn-default.btn-xs.dropdown-toggle(type="button",data-toggle="dropdown",aria-expanded="false") 操作
+              span.caret
+            ul.dropdown-menu.pull-right(role="menu")
+              li
+                a.model-edit(href="javascript:void(0)",data-id=item._id,data-name=item.name) 编辑 
+              li
+                a.model-del(href="javascript:void(0)",data-id=item._id,data-name=item.name) 删除
+              li.divider
+              li
+                a.model-property-add(href="javascript:void(0)",data-id=item._id,data-name=item.name ) 添加属性
+      div.panel-body
+        input.model-property-data(type='hidden',value=JSON.stringify(item.property))
+        div.table-responsive
+          table.table.table-striped.table-bordered.table-hover
+            thead
+              tr
+                th(style='width:10%') #
+                th(style='width:60%') 名称
+                th(style='width:20%') 类型
+                th(style='width:10%')
+            tbody
+              - item.property.forEach(function(p,n){
+              tr
+                td #{n+1}
+                td #{p.name}
+                td #{p.type}
+                td
+                  ul.list-inline.small(style='margin-bottom: 0')
+                    li
+                      a.model-property-edit(href='javascript:;',title='编辑',data-id=item._id,data-property-id=p.id)
+                        i.glyphicon.glyphicon-edit  
+                    li
+                      a.model-property-delete(href='javascript:;',title='删除',data-id=item._id,data-property-id=p.id)
+                        i.glyphicon.glyphicon-remove
+              - })
+    - })
     div.panel.panel-default
       div.panel-body
         a#createModelBtn(href='javascript:;',title='添加领域模型')
           h1.text-center
             i.fa.fa-plus
-    - if (leftList.length)
-    - leftList.forEach(function(item){
-    div.panel.panel-default
-      div.panel-heading
-       = item.name
-       div.pull-right
-          div.btn-group
-            button.btn.btn-default.btn-xs.dropdown-toggle(type="button",data-toggle="dropdown",aria-expanded="false") 操作
-              span.caret
-            ul.dropdown-menu.pull-right(role="menu")
-              li
-                a.model-edit(href="javascript:void(0)",data-id=item._id,data-name=item.name) 编辑 
-              li
-                a.model-del(href="javascript:void(0)",data-id=item._id,data-name=item.name) 删除
-              li.divider
-              li
-                a.model-property-add(href="javascript:void(0)",data-id=item._id,data-name=item.name) 添加属性
-      div.panel-body
-        div.table-responsive
-          table.table.table-striped.table-bordered.table-hover
-            thead
-              tr
-                th(style='width:10%') #
-                th(style='width:62%') 名称
-                th(style='width:20%') 类型
-                th(style='width:8%')
-            tbody
-              - item.property.forEach(function(p,n){
-              tr
-                td #{n+1}
-                td #{p.name}
-                td #{p.type}
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#',title='编辑')
-                        i.glyphicon.glyphicon-edit  
-                    li
-                      a(href='#',title='删除')
-                        i.glyphicon.glyphicon-remove
-              - })
-    - })
-  div.col-lg-6
-    - if (rightList.length)
-    - rightList.forEach(function(item){
-    div.panel.panel-default
-      div.panel-heading
-       = item.name
-       div.pull-right
-          div.btn-group
-            button.btn.btn-default.btn-xs.dropdown-toggle(type="button",data-toggle="dropdown",aria-expanded="false") 操作
-              span.caret
-            ul.dropdown-menu.pull-right(role="menu")
-              li
-                a.model-edit(href="javascript:void(0)",data-id=item._id,data-name=item.name) 编辑 
-              li
-                a.model-del(href="javascript:void(0)",data-id=item._id,data-name=item.name) 删除
-              li.divider
-              li
-                a.model-property-add(href="javascript:void(0)",data-id=item._id,data-name=item.name) 添加属性
-      div.panel-body
-        div.table-responsive
-          table.table.table-striped.table-bordered.table-hover
-            thead
-              tr
-                th(style='width:10%') #
-                th(style='width:62%') 名称
-                th(style='width:20%') 类型
-                th(style='width:8%')
-            tbody
-              - item.property.forEach(function(p,n){
-              tr
-                td #{n+1}
-                td #{p.name}
-                td #{p.type}
-                td
-                  ul.list-inline.small(style='margin-bottom: 0')
-                    li
-                      a(href='#',title='编辑')
-                        i.glyphicon.glyphicon-edit  
-                    li
-                      a(href='#',title='删除')
-                        i.glyphicon.glyphicon-remove
-              - })
-    - })
+  
   script(src='/javascript/model.js')
   div.col-lg-12.hidden.model-property-add-template
-    form
+    form.model-property-form
       div.form-group
         label(for='name') 属性名称
-        input.form-control(type='email',name='name',placeholder='请输入属性名称')
+        input.form-control(type='text',name='name',placeholder='请输入属性名称')
       div.form-group
         label(for='type') 属性类型
         select(class='form-control',name='type')
           option(value='') ---请选择---
-          option(value='text') 文本
-          option(value='number') 数字
-          option(value='date') 日期
-          option(value='object') 对象
-          option(value='array') 集合
+          option(value='文本') 文本
+          option(value='数字') 数字
+          option(value='选择') 选择
+          option(value='日期') 日期
+          option(value='对象') 对象
+          option(value='集合') 集合
+          option(value='文件') 文件
       //- div.form-group
       //-   label(for='text-setting') 文本设置
       //-   div

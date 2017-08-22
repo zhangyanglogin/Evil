@@ -1,27 +1,16 @@
 var express = require('express');
 var router = express.Router();
+var tool = require('../common/tool');
 var Model = require('../entity/model');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   Model.find({ "project_id": req.session.user.project_id }, function (err, models) {
-    var left = [];
-    var right = [];
-
     if (err) {
       res.render('model', { leftList: left, rightList: right });
     }
 
-    models.forEach(function (item, index) {
-      if (index % 2 == 0) {
-        left.push(item);
-      }
-      else {
-        right.push(item);
-      }
-    });
-
-    res.render('model', { leftList: left, rightList: right });
+    res.render('model', { modelList: models});
   });
 });
 
@@ -73,6 +62,66 @@ router.post('/postdelete', function (req, res, next) {
   var id = req.body.id;
   if (id) {
     Model.deleteOne({ "_id": id, "project_id": req.session.user.project_id }, function (err, doc) {
+      if (err) {
+        res.json({ "flag": false, "msg": err });
+      }
+
+      res.json({ "flag": true });
+    });
+  }
+  else {
+    res.json({ "flag": false, "msg": "参数错误" });
+  }
+});
+
+router.post('/addproperty', function (req, res, next) {
+  var id = req.body.id;
+  var name = req.body.name;
+  var type = req.body.type;
+  if (id && name && type) {
+    Model.findOneAndUpdate({ "_id": id, "project_id": req.session.user.project_id }, {
+      $push: { "property": { "id": tool.ObjectId(), "name": name, "type": type } }
+    }, function (err, doc) {
+      if (err) {
+        res.json({ "flag": false, "msg": err });
+      }
+
+      res.json({ "flag": true });
+    });
+  }
+  else {
+    res.json({ "flag": false, "msg": "参数错误" });
+  }
+});
+
+router.post('/delproperty', function (req, res, next) {
+  var modelId = req.body.modelId;
+  var propertyId = req.body.propertyId;
+  if (modelId && propertyId) {
+    Model.findOneAndUpdate({ "_id": modelId, "project_id": req.session.user.project_id }, {
+      $pull: { "property": { "id": tool.ObjectId(propertyId) } }
+    }, function (err, doc) {
+      if (err) {
+        res.json({ "flag": false, "msg": err });
+      }
+
+      res.json({ "flag": true });
+    });
+  }
+  else {
+    res.json({ "flag": false, "msg": "参数错误" });
+  }
+});
+
+router.post('/editproperty', function (req, res, next) {
+  var modelId = req.body.modelId;
+  var propertyId = req.body.propertyId;
+  var name = req.body.name;
+  var type = req.body.type;
+  if (modelId && propertyId && name && type) {
+    Model.findOneAndUpdate({ "_id": modelId, "project_id": req.session.user.project_id,"property.id":tool.ObjectId(propertyId) }, {
+      $set: { "property.$.name":name,"property.$.type":type  }
+    }, function (err, doc) {
       if (err) {
         res.json({ "flag": false, "msg": err });
       }
